@@ -14,7 +14,7 @@ def dexdump_plain(input_filename, output_filename):
                        text=True,
                        check=True).stdout.split('\n')
     except subprocess.CalledProcessError:
-        print("An error occured while handling file: ", input_filename)
+        print("[ERROR] An error occured while handling file: ", input_filename)
 
 
 def dexdump_xml(input_filename, output_filename):
@@ -27,7 +27,7 @@ def dexdump_xml(input_filename, output_filename):
                        text=True,
                        check=True).stdout.split('\n')
     except subprocess.CalledProcessError:
-        print("An error occured while handling file: ", input_filename)
+        print("[ERROR] An error occured while handling file: ", input_filename)
 
 
 def dexdump_hex(input_filename, output_filename):
@@ -41,8 +41,18 @@ def dexdump_hex(input_filename, output_filename):
             text=True,
             check=True).stdout.split('\n')
     except subprocess.CalledProcessError:
-        print("An error occured while handling file: ", input_filename)
+        print("[ERROR] An error occured while handling file: ", input_filename)
 
 
-def write_apkname_to_file(filename, tag):
-    pass
+def write_apkname_to_file(filename, file_tag="man"):
+    if "dex" in file_tag:
+        output_filepath = paths.CLASSES_DEX_FILES_LIST
+    else: output_filepath = paths.MANIFEST_FILES_LIST
+
+    with open(output_filepath, "a") as file:
+        if "benign_" in filename:
+            tag = "0"
+        else:
+            tag = "1"
+        apk_name = filename.split("_")[-1]
+        file.write(tag + ", " + apk_name + "\n")

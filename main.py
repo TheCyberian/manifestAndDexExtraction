@@ -27,7 +27,7 @@ def decompile_apk_and_extract_data(args):
 
     except Exception as e:
         print(e)
-        print("Error Occurred! Could not find file " + apk_input_path)
+        print("[ERROR] Error Occurred! Could not find file " + apk_input_path)
     GLOBAL_LOCK.release()
 
 
@@ -55,4 +55,7 @@ def main():
 
 
 if __name__ == '__main__':
+    print("[INFO] Clearing out older files if they exist...")
+    if os.path.exists(paths.MANIFEST_FILES_LIST): os.remove(paths.MANIFEST_FILES_LIST)
+    if os.path.exists(paths.CLASSES_DEX_FILES_LIST): os.remove(paths.CLASSES_DEX_FILES_LIST)
     main()

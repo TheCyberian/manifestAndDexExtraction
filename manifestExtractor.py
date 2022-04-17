@@ -16,6 +16,7 @@ def extract_manifest_from_apk_in_path(decompiled_output_path):
     print("Found AndroidManifest.xml at path:", file_path)
     print("APK File name:", file_path.split('/')[-2])
     file_name = file_path.split('/')[-2]
+    # TODO: Write file_name variable (without benign/malicious tag) to a APKFilesList for reproducible experiments.
     print("Copying Manifest File now... ")
     subprocess.run('cp {} {}'.format(file_path, paths.MANIFEST_FILE_PATH + "/" + file_name + "_manifest.xml"),
                    shell=True,
